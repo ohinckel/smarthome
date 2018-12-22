@@ -95,7 +95,11 @@ echo "travis_fold:end:Links"
 
 echo -e "travis_fold:start:Suite\nRunning suite"
 
-cd smarthome
+if [ "smarthome" = "$REPOSITORY_ORIGIN" ] ; then
+  cd $(basename $TRAVIS_REPO_SLUG)
+else
+  cd smarthome
+fi
 tox || exit 1
 cd ..
 
