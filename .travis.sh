@@ -75,6 +75,11 @@ for LINK in $LINKS ; do
   TARGET_DIR=$(basename "$TARGET")
   SOURCE_REPO=$(basename "$LINK")
 
+  # Use Travis checkout for repository the tests are running for
+  if [ "$TARGET_REPO" = "$REPOSITORY_ORIGIN" ] ; then
+    TARGET_REPO="$(basename $TRAVIS_REPO_SLUG)"
+  fi
+
   echo "Create link from $SOURCE_REPO to $TARGET_REPO/$TARGET_DIR ..."
   cd $TARGET_REPO
   rm -rf $TARGET_DIR
